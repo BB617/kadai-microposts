@@ -9,20 +9,19 @@ class MicropostsController extends Controller
     public function index()
     {
         $data = [];
-        if(\Auth::check()){ //認証済みの場合
-            //認証済みユーザーを取得
+        if (\Auth::check()) {
+            // 認証済みユーザ（閲覧者）を取得
             $user = \Auth::user();
-            //ユーザー投稿の一覧を作成日時の降順で取得。
-            $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
-            
-            
+            // ユーザとフォロー中ユーザの投稿の一覧を作成日時の降順で取得
+            $microposts = $user->feed_microposts()->orderBy('created_at', 'desc')->paginate(10);
+
             $data = [
                 'user' => $user,
                 'microposts' => $microposts,
             ];
         }
-        
-        
+
+        // Welcomeビューでそれらを表示
         return view('welcome', $data);
     }
     
