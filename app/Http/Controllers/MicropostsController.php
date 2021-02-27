@@ -49,7 +49,7 @@ class MicropostsController extends Controller
         
         //認証済みユーザー（閲覧者）がその投稿の所有者である場合は、投稿を削除。
         //ログインユーザのID === Micropostの所有者のID
-        if(\Auth::id() === $microposts-user_id){
+        if(\Auth::id() === $microposts->user_id){
             $micropost->delete();
         }
         
